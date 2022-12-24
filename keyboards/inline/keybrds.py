@@ -1,11 +1,10 @@
 import calendar
 from datetime import date, timedelta
 import locale
-locale.setlocale(locale.LC_ALL, 'ru_RU')
-
 from keyboards.inline.filters import calendar_factory, calendar_zoom, calendar_date
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
+locale.setlocale(locale.LC_ALL, 'ru_RU')
 EMTPY_FIELD = '1'
 WEEK_DAYS = [calendar.day_abbr[i] for i in range(7)]
 MONTHS = [(i, calendar.month_name[i]) for i in range(1, 13)]
@@ -55,7 +54,7 @@ def generate_calendar_days(year: int, month: int):
             callback_data=calendar_factory.new(year=previous_date.year, month=previous_date.month)
         ),
         InlineKeyboardButton(
-            text='Уменьшить',
+            text='по годам',
             callback_data=calendar_zoom.new(year=year)
         ),
         InlineKeyboardButton(

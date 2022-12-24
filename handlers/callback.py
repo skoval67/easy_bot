@@ -9,7 +9,7 @@ from datetime import date
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "cb_yes")
-def callback_query(call):
+def callback_query(call: CallbackQuery):
   with bot.retrieve_data(call.from_user.id) as data:
     data['show_photo'] = True
   bot.set_state(call.from_user.id, HotelPrice.photo_count)
@@ -17,10 +17,10 @@ def callback_query(call):
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "cb_no")
-def callback_query(call):
+def callback_query(call: CallbackQuery):
   with bot.retrieve_data(call.from_user.id) as data:
     data['show_photo'] = False
-    bot.send_message(call.from_user.id, f'Делаю запрос. Ждите...')
+    bot.send_message(call.from_user.id, 'Делаю поиск. Ждите...')
     success, info = make_query(data)
   bot.delete_state(call.from_user.id)
   if success:

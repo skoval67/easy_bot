@@ -1,5 +1,6 @@
 from typing import Dict
-import requests, json
+from json import loads
+from requests import get, post, Response, exceptions
 from config_data import config
 from loader import logger
 from datetime import date
@@ -10,16 +11,17 @@ from loader import logger
 APIHOST = "hotels4.p.rapidapi.com"
 APIURL = f"https://{APIHOST}/"+"{0}"
 
-def fatal_code(e):
-  return 400 <= e.response.status_code < 500
+def fatal_code(e: Exception) -> bool:
+  return e.response.status_code >= 500
 
-@on_exception(expo, requests.exceptions.RequestException, max_time=60, max_tries=8, jitter=0.1, giveup=fatal_code, logger=logger)
-def get_url(url, **kwargs):
-  return requests.get(url, **kwargs)
+@on_exception(expo, exceptions.RequestException, max_time=60, max_tries=8, jitter=0.1, giveup=fatal_code, logger=logger)
+def get_url(url: str, **kwargs) -> Response:
+  return get(url, **kwargs)
 
-@on_exception(fibo, requests.exceptions.RequestException, max_time=60, max_tries=8, jitter=None, giveup=fatal_code, logger=logger)
-def get_post(url, **kwargs):
-  return requests.post(url, **kwargs)
+@on_exception(fibo, exceptions.RequestException, max_time=60, max_tries=8, jitter=None, giveup=fatal_code, logger=logger)
+def get_post(url: str, **kwargs) -> Response:
+  return post(url, **kwargs)
+
 
 def make_query(data: Dict) -> (bool, Dict):
   try:
@@ -36,7 +38,7 @@ def make_query(data: Dict) -> (bool, Dict):
     if response.status_code != 200:
       raise ValueError('Bad response')
 
-    regionId = json.loads(response.text)['sr'][0]['gaiaId']
+    regionId = loads(response.text)['sr'][0]['gaiaId']
   
     url = APIURL.format('properties/v2/list')
     headers["content-type"] = "application/json"
@@ -62,7 +64,7 @@ def make_query(data: Dict) -> (bool, Dict):
     if response.status_code != 200:
       raise ValueError('Bad response')
 
-    hotels = json.loads(response.text)['data']['propertySearch']['properties']
+    hotels = loads(response.text)['data']['propertySearch']['properties']
     for hotel in hotels:
       answer[hotel['id']] = dict()
       answer[hotel['id']]['name'] = hotel['name']
@@ -78,10 +80,10 @@ def make_query(data: Dict) -> (bool, Dict):
       if response.status_code != 200:
         raise ValueError('Bad response')
 
-      hotel_detail = json.loads(response.text)['data']['propertyInfo']
+      hotel_detail = loads(response.text)['data']['propertyInfo']
 
       answer[hotel['id']]['address'] = hotel_detail['summary']['location']['address']['addressLine']
-      answer[hotel['id']]['url'] = hotel_detail['summary']['location']['staticImage']['url']            # другой страницы отеля в интернете не нашел
+      answer[hotel['id']]['url'] = hotel_detail['summary']['location']['staticImage']['url']            # другой страницы отеля в api не нашел
       answer[hotel['id']]['tag'] = hotel_detail['summary']['tagline'].strip()
       if data['show_photo']:
         images_list = hotel_detail['propertyGallery']['images']

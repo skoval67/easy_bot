@@ -30,12 +30,13 @@ def hotels_count(message: Message) -> None:
   try:
     if int(message.text) <= 0:
       raise ValueError('Так мало??')
-    with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
-      data['hotels_count'] = int(message.text)
-    bot.send_message(message.chat.id, 'Показывать фотографии отелей?', reply_markup = keybrd_yesno)
   except Exception as e:
+    logger.exception(e)
     bot.reply_to(message, f'Здесь какая-то ошибка: {str(e)}\nСколько отелей показать?')
-    logger.error(f'{str(e)}')
+    return
+  with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
+    data['hotels_count'] = int(message.text)
+  bot.send_message(message.chat.id, 'Показывать фотографии отелей?', reply_markup = keybrd_yesno)
 
 
 @bot.message_handler(state = HotelPrice.photo_count)
@@ -44,11 +45,12 @@ def photo_count(message: Message) -> None:
     if int(message.text) <= 0:
       raise ValueError('Так мало??')
   except Exception as e:
+    logger.exception(e)
     bot.reply_to(message, f'Здесь какая-то ошибка: {str(e)}\nСколько вывести фотографий <i>[не больше 10]</i>?', parse_mode = 'html')
     return
   with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
     data['photo_count'] = min(10, int(message.text))
-    bot.send_message(message.chat.id, f'Делаю запрос. Ждите...')
+    bot.send_message(message.chat.id, 'Делаю запрос. Ждите...')
     success, info = make_query(data)
   bot.delete_state(message.from_user.id, message.chat.id)
   if success:

@@ -1,15 +1,15 @@
 from telebot import TeleBot
 from telebot.storage import StateMemoryStorage
-from config_data import config
+from config_data.config import BOT_TOKEN
 import logging
 
 logger = logging.getLogger('EasyTravelBot')
 f_handler = logging.FileHandler('mybot.log')
 f_handler.setLevel(logging.ERROR)
-f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+f_format = logging.Formatter(fmt='%(asctime)s,%(levelname)s,%(message)s', datefmt='%d.%m.%Y %H:%M:%S')
 f_handler.setFormatter(f_format)
 logger.addHandler(f_handler)
-logger.warning('This is a warning')
-logger.error('This is an error')
+#logger.warning('This is a warning')
+#logger.error('This is an error')
 
-bot = TeleBot(token=config.BOT_TOKEN, state_storage=StateMemoryStorage())
+bot = TeleBot(BOT_TOKEN, state_storage=StateMemoryStorage())

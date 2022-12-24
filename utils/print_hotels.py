@@ -1,11 +1,11 @@
 from loader import bot
-from typing import Dict
+from typing import Dict, Union
 from telebot.types import InputMediaPhoto
 from loader import logger
 from datetime import date
 
 
-def print_hotels(chatid, hotels_info: Dict) -> None:
+def print_hotels(chatid: Union[int, str], hotels_info: Dict) -> None:
   try:
     for hotel in hotels_info.values():
       bot.send_message(chatid, '🔘')
