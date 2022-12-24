@@ -3,7 +3,7 @@ from telebot.storage import StateMemoryStorage
 from config_data import config
 import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('EasyTravelBot')
 f_handler = logging.FileHandler('mybot.log')
 f_handler.setLevel(logging.ERROR)
 f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
