@@ -9,7 +9,5 @@ f_handler.setLevel(logging.ERROR)
 f_format = logging.Formatter(fmt='%(asctime)s,%(levelname)s,%(message)s', datefmt='%d.%m.%Y %H:%M:%S')
 f_handler.setFormatter(f_format)
 logger.addHandler(f_handler)
-#logger.warning('This is a warning')
-#logger.error('This is an error')
 
 bot = TeleBot(BOT_TOKEN, state_storage=StateMemoryStorage())

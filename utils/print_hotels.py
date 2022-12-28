@@ -3,23 +3,63 @@ from typing import Dict, Union
 from telebot.types import InputMediaPhoto
 from loader import logger
 from datetime import date
+from telebot.apihelper import ApiTelegramException
+from functools import wraps
+from time import sleep
 
+
+def retry(exception, max_tries=None):
+  """
+  Декоратор для обработки ошибки: A request to the Telegram API was unsuccessful. Error code: 429.
+  """
+  def wrap_fun(func):
+
+    @wraps(func)
+    def wrapped_func(*args, **kwargs):
+      tries = 0
+      while True:
+        try:
+          tries += 1
+          ret = func(*args, **kwargs)
+        except exception as e:
+          if max_tries is not None and tries == max_tries:
+            raise
+          seconds = int(e.result.headers._store['retry-after'][1])
+          sleep(seconds)
+        else:
+          return ret
+
+    return wrapped_func
+
+  return wrap_fun
+
+
+@retry(ApiTelegramException)
+def send_message(id, *args, **kwargs):
+  bot.send_message(id, *args, **kwargs)
+
+@retry(ApiTelegramException)
+def send_media(chatid, medias):
+  bot.send_media_group(chatid, medias)
 
 def print_hotels(chatid: Union[int, str], hotels_info: Dict) -> None:
   try:
-    for hotel in hotels_info.values():
-      bot.send_message(chatid, '🔘')
+    for id, hotel in hotels_info.items():
+      send_message(chatid, '🔘')
       checkin_date = date(hotel['checkin']['year'], hotel['checkin']['month'], hotel['checkin']['day'])
       checkout_date = date(hotel['checkout']['year'], hotel['checkout']['month'], hotel['checkout']['day'])
       total = round((checkout_date - checkin_date).days * hotel['price'], 2)
-      bot.send_message(chatid, \
-       f"<a href='{hotel['url']}'>{hotel['name']}</a>\n{hotel['tag']}\n{hotel['address']}\nЦена за ночь: {hotel['price']}$\nСтоимость за период с {checkin_date.strftime('%d.%m.%Y')} по {checkout_date.strftime('%d.%m.%Y')}: {total}$\nРасстояние до центра города: {hotel['distance']}км", \
+      send_message(chatid, \
+        str(f"<a href='https://www.hotels.com/h{id}.Hotel-Information' hreflang='EN'>{hotel['name']}</a>\n"
+           f"{hotel['tag']}\n{hotel['address']}\nЦена за ночь: {hotel['price']}$\n"
+           f"Стоимость за период с {checkin_date.strftime('%d.%m.%Y')} по {checkout_date.strftime('%d.%m.%Y')}: {total}$\n"
+           f"Расстояние до центра города: {hotel['distance']}км"), \
        parse_mode='html')
       if 'images' in hotel:
         medias = list()
         for i_image in hotel['images']:
           medias.append(InputMediaPhoto(i_image["image"]["url"], i_image["image"]["description"]))
-        bot.send_media_group(chatid, medias)
+        send_media(chatid, medias)
   except Exception as e:
     logger.exception(e)
     bot.send_message(chatid, f'Что-то пошло не так: {e}')

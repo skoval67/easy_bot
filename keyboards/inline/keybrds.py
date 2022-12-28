@@ -1,7 +1,8 @@
 import calendar
+from typing import List
 from datetime import date, timedelta
 import locale
-from keyboards.inline.filters import calendar_factory, calendar_zoom, calendar_date
+from keyboards.inline.filters import calendar_factory, calendar_zoom, calendar_date, city
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 locale.setlocale(locale.LC_ALL, 'ru_RU')
@@ -9,9 +10,17 @@ EMTPY_FIELD = '1'
 WEEK_DAYS = [calendar.day_abbr[i] for i in range(7)]
 MONTHS = [(i, calendar.month_name[i]) for i in range(1, 13)]
 
+
 keybrd_yesno = InlineKeyboardMarkup(row_width = 2).add(InlineKeyboardButton("Да", callback_data="cb_yes"), InlineKeyboardButton("Нет", callback_data="cb_no"))
 
-def generate_calendar_days(year: int, month: int):
+def keybrd_specify_city(cities: List) -> InlineKeyboardMarkup:
+  keyboard = InlineKeyboardMarkup(row_width = 2)
+  for loc in cities:
+    keyboard.add(InlineKeyboardButton(text=loc[1], callback_data=city.new(loc[0])))
+
+  return keyboard
+
+def generate_calendar_days(year: int, month: int) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup(row_width=7)
     today = date.today()
 
@@ -66,7 +75,7 @@ def generate_calendar_days(year: int, month: int):
     return keyboard
 
 
-def generate_calendar_months(year: int):
+def generate_calendar_months(year: int) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup(row_width=3)
     keyboard.add(
         InlineKeyboardButton(

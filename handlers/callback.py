@@ -4,7 +4,7 @@ from telebot.types import Message, CallbackQuery
 from utils.rapidapi import make_query
 from utils.print_hotels import print_hotels
 from keyboards.inline.keybrds import generate_calendar_days, generate_calendar_months
-from keyboards.inline.filters import calendar_factory, calendar_zoom, calendar_date
+from keyboards.inline.filters import calendar_factory, calendar_zoom, calendar_date, city
 from datetime import date
 
 
@@ -59,8 +59,22 @@ def calendar_date_handler(call: CallbackQuery):
       checkin_date = date(data['checkin']['year'], data['checkin']['month'], data['checkin']['day'])
       checkout_date = date(data['checkout']['year'], data['checkout']['month'], data['checkout']['day'])
     if checkin_date < checkout_date:
-      bot.set_state(call.from_user.id, HotelPrice.hotels_count)
-      bot.send_message(call.from_user.id, 'Сколько отелей показать?')
+      if data['command'] == '/bestdeal':
+        bot.set_state(call.from_user.id, HotelPrice.price_range)
+        bot.send_message(call.from_user.id, 'Укажите диапазон цен: <i>min - max</i>', parse_mode='html')
+      else:
+        bot.set_state(call.from_user.id, HotelPrice.hotels_count)
+        bot.send_message(call.from_user.id, 'Сколько отелей показать?')
     else:
       bot.delete_state(call.from_user.id)
       bot.send_message(call.from_user.id, 'Дата выезда должна быть больше даты заезда')
+
+
+@bot.callback_query_handler(func=None, city_config=city.filter())
+def city_handler(call: CallbackQuery):
+  callback_data: dict = city.parse(callback_data=call.data)
+  with bot.retrieve_data(call.from_user.id) as data:
+    data['region_id'] = callback_data['city']
+    bot.set_state(call.from_user.id, HotelPrice.checkin_date)
+    now = date.today()
+    bot.send_message(call.from_user.id, 'Дата заезда', reply_markup = generate_calendar_days(year=now.year, month=now.month))
