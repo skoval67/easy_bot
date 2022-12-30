@@ -1,11 +1,11 @@
-from loader import bot
+from loader import bot, logger
 from typing import Dict, Union
 from telebot.types import InputMediaPhoto
-from loader import logger
 from datetime import date
 from telebot.apihelper import ApiTelegramException
 from functools import wraps
 from time import sleep
+from database.core import History
 
 
 def retry(exception, max_tries=None):
@@ -42,6 +42,7 @@ def send_message(id, *args, **kwargs):
 def send_media(chatid, medias):
   bot.send_media_group(chatid, medias)
 
+
 def print_hotels(chatid: Union[int, str], hotels_info: Dict) -> None:
   try:
     for id, hotel in hotels_info.items():
@@ -54,12 +55,15 @@ def print_hotels(chatid: Union[int, str], hotels_info: Dict) -> None:
            f"{hotel['tag']}\n{hotel['address']}\nЦена за ночь: {hotel['price']}$\n"
            f"Стоимость за период с {checkin_date.strftime('%d.%m.%Y')} по {checkout_date.strftime('%d.%m.%Y')}: {total}$\n"
            f"Расстояние до центра города: {hotel['distance']}км"), \
-       parse_mode='html')
+       parse_mode='html', disable_web_page_preview=True)
       if 'images' in hotel:
         medias = list()
         for i_image in hotel['images']:
           medias.append(InputMediaPhoto(i_image["image"]["url"], i_image["image"]["description"]))
         send_media(chatid, medias)
+    with bot.retrieve_data(chatid) as data:
+      # ишем историю в базу данных
+      History(user_id=chatid, command=data['command'], hotels=hotels_info).save()
   except Exception as e:
     logger.exception(e)
     bot.send_message(chatid, f'Что-то пошло не так: {e}')

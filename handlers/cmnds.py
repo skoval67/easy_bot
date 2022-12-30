@@ -9,7 +9,7 @@ from datetime import date
 
 
 @bot.message_handler(commands=['lowprice', 'highprice', 'bestdeal'])
-def lowprice(message: Message) -> None:
+def get_price(message: Message) -> None:
   bot.set_state(message.from_user.id, HotelPrice.location, message.chat.id)
   with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
     if message.text == '/bestdeal':
@@ -71,11 +71,11 @@ def photo_count(message: Message) -> None:
     data['photo_count'] = min(10, int(message.text))
     bot.send_message(message.chat.id, 'Делаю запрос. Ждите...')
     success, info = make_query(data)
+    if success:
+      print_hotels(message.chat.id, info)
+    else:
+      bot.send_message(message.chat.id, f'Что-то пошло не так: {info}')
   bot.delete_state(message.from_user.id, message.chat.id)
-  if success:
-    print_hotels(message.chat.id, info)
-  else:
-    bot.send_message(message.chat.id, f'Что-то пошло не так: {info}')
 
 
 @bot.message_handler(state = HotelPrice.price_range)
@@ -83,6 +83,8 @@ def get_price_range(message: Message) -> None:
   try:
     with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
       data['min_price'], data['max_price'] = map(float, message.text.split('-'))
+      if data['min_price'] < 1:
+        data['min_price'] = 1       # поиск по цене меньше 1 вызывает ошибку
     bot.set_state(message.from_user.id, HotelPrice.distance_range, message.chat.id)
     bot.send_message(message.chat.id, 'Укажите диапазон расстояний в км: <i>min - max</i>', parse_mode='html')
   except Exception as e:

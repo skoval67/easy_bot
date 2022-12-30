@@ -22,11 +22,11 @@ def callback_query(call: CallbackQuery):
     data['show_photo'] = False
     bot.send_message(call.from_user.id, 'Делаю поиск. Ждите...')
     success, info = make_query(data)
-  bot.delete_state(call.from_user.id)
   if success:
     print_hotels(call.from_user.id, info)
   else:
     bot.send_message(call.from_user.id, f'Что-то пошло не так: {info}')
+  bot.delete_state(call.from_user.id)
 
 
 @bot.callback_query_handler(func=None, calendar_config=calendar_factory.filter())
