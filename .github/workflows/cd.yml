@@ -33,5 +33,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /opt/xray
+            cd ${{ vars.APPS_DIR }}
             docker compose logs tgbot # Or docker compose restart to restart all
