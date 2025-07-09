@@ -1,0 +1,6 @@
+.env
+.git
+.gitignore
+history.db
+mybot.log
+__pycache__
