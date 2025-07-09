@@ -18,4 +18,20 @@ jobs:
     if: ${{ inputs.print_tags }} 
     steps:
       - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }} 
+        run: echo  The tags are ${{ inputs.tags }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy and Restart Docker Compose Service
+        uses: appleboy/ssh-action@v1.0.0 # Use a suitable version
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /opt/xray
+            docker compose logs tgbot # Or docker compose restart to restart all
