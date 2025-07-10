@@ -34,5 +34,6 @@ jobs:
           envs: image_tag
           script: |
             cd ${{ secrets.APPS_DIR }}
+            export image_tag=${{ inputs.tag }}
             echo ${image_tag}
             docker stack deploy -c docker-compose.yaml tgbot
