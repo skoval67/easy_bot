@@ -24,9 +24,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy and Restart Docker Compose Service
-        uses: appleboy/ssh-action@v1.2.2 # Use a suitable version
         env:
           image_tag: ${{ inputs.tag }}
+        uses: appleboy/ssh-action@v1.2.2 # Use a suitable version
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
