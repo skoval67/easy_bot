@@ -31,7 +31,7 @@ jobs:
           name: tgbot
           file: /opt/tgbot/docker-compose.yaml
           host: ${{ secrets.SSH_HOST }}
-          user: ${{ secrets.SSH_USER }}
+          user: tgbot
           ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
           detach: true
           prune: false
