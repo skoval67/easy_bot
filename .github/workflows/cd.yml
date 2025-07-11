@@ -23,23 +23,41 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: skoval67
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Deploy and Restart Docker Compose Service
+      - name: 'Stack Deploy'
+        uses: cssnr/stack-deploy-action@v1
         env:
           image_tag: ${{ inputs.tag }}
-        uses: appleboy/ssh-action@v1.2.2 # Use a suitable version
         with:
+          name: tgbot
+          file: "${{ secrets.APPS_DIR }}/docker-compose.yaml"
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: image_tag
-          script: |
-            cd ${{ secrets.APPS_DIR }}
-            export image_tag=${{ inputs.tag }}
-            docker stack deploy -c docker-compose.yaml --with-registry-auth tgbot
+          user: ${{ secrets.SSH_USER }}
+          ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          detach: true
+          prune: false
+          resolve_image: 'always'
+            #registry_auth: true # not needed with registry_pass/registry_user
+          registry_host: 'ghcr.io'
+          registry_user: skoval67
+          registry_pass: ${{ secrets.GITHUB_TOKEN }}
+          summary: true
+      #- name: Log in to the Container registry
+      #  uses: docker/login-action@v3
+      #  with:
+      #    registry: ghcr.io
+      #    username: skoval67
+      #    password: ${{ secrets.GITHUB_TOKEN }}
+
+      #- name: Deploy and Restart Docker Compose Service
+      #  env:
+      #    image_tag: ${{ inputs.tag }}
+      #  uses: appleboy/ssh-action@v1.2.2 # Use a suitable version
+      #  with:
+      #    host: ${{ secrets.SSH_HOST }}
+      #    username: ${{ secrets.SSH_USER }}
+      #    key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #    envs: image_tag
+      #    script: |
+      #      cd ${{ secrets.APPS_DIR }}
+      #      export image_tag=${{ inputs.tag }}
+      #      docker stack deploy -c docker-compose.yaml --with-registry-auth tgbot
