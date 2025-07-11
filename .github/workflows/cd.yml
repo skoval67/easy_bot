@@ -27,6 +27,8 @@ jobs:
         uses: cssnr/stack-deploy-action@v1
         env:
           image_tag: ${{ inputs.tag }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
         with:
           name: tgbot
           file: docker-compose.yaml
@@ -36,7 +38,6 @@ jobs:
           detach: true
           prune: false
           resolve_image: 'always'
-          env_file: '.env'
             #registry_auth: true # not needed with registry_pass/registry_user
           registry_host: 'ghcr.io'
           registry_user: skoval67
