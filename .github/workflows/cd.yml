@@ -42,4 +42,4 @@ jobs:
           script: |
             cd ${{ secrets.APPS_DIR }}
             export image_tag=${{ inputs.tag }}
-            docker stack deploy -c docker-compose.yaml tgbot
+            docker stack deploy -c docker-compose.yaml --with-registry-auth tgbot
