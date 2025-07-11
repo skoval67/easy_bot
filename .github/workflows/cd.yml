@@ -35,10 +35,8 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           user: tgbot
           ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          detach: true
-          prune: false
+          prune: true
           resolve_image: 'always'
-            #registry_auth: true # not needed with registry_pass/registry_user
           registry_host: 'ghcr.io'
           registry_user: skoval67
           registry_pass: ${{ secrets.GITHUB_TOKEN }}

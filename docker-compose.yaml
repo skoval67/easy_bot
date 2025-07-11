@@ -2,6 +2,9 @@ services:
 
   tgbot:
     image: ghcr.io/skoval67/easybot:${image_tag}
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      RAPID_API_KEY: ${RAPID_API_KEY}
     volumes:
       - /opt/tgbot/mybot.log:/app/mybot.log
       - /opt/tgbot/history.db:/app/history.db
