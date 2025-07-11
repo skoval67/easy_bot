@@ -6,6 +6,9 @@ services:
       BOT_TOKEN: ${BOT_TOKEN}
       RAPID_API_KEY: ${RAPID_API_KEY}
     volumes:
-      - /opt/tgbot/mybot.log:/app/mybot.log
-      - /opt/tgbot/history.db:/app/history.db
-      - /opt/tgbot/.env:/app/.env
+      - botlog:/app/mybot.log
+      - bothistory:/app/history.db
+
+volumes:
+  botlog:
+  bothistory:
