@@ -1,0 +1,8 @@
+services:
+
+  tgbot:
+    image: ghcr.io/skoval67/easybot:${image_tag}
+    volumes:
+      - /opt/tgbot/mybot.log:/app/mybot.log
+      - /opt/tgbot/history.db:/app/history.db
+      - /opt/tgbot/.env:/app/.env
