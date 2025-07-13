@@ -1,4 +1,4 @@
-#from loader import bot, logger
+from loader import bot #, logger
 from states.polls import HotelPrice
 from telebot.types import Message, CallbackQuery, InlineKeyboardButton
 from keyboards.inline.keybrds import generate_calendar_days, generate_calendar_months, keybrd_yesno, keybrd_specify_city
