@@ -3,7 +3,7 @@ import peewee as pw
 from json import dumps, loads
 
 
-db = pw.SqliteDatabase('history.db')
+db = pw.SqliteDatabase('history\history.db')
 
 class JSONField(pw.TextField):
   def db_value(self, value):
