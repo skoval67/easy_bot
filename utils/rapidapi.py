@@ -5,7 +5,7 @@ from config_data import config
 from loader import logger
 from datetime import date
 from backoff import on_exception, expo, fibo
-from loader import logger
+#from loader import logger
 
 
 APIHOST = "hotels4.p.rapidapi.com"

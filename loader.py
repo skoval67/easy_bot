@@ -1,9 +1,9 @@
 from telebot import TeleBot
 from telebot.storage import StateMemoryStorage
 from config_data.config import BOT_TOKEN
-#import logging
+import logging
 
-#logger = logging.getLogger('EasyTravelBot')
+logger = logging.getLogger('EasyTravelBot')
 #f_handler = logging.FileHandler('mybot.log')
 #f_handler.setLevel(logging.ERROR)
 #f_format = logging.Formatter(fmt='%(asctime)s,%(levelname)s,%(message)s', datefmt='%d.%m.%Y %H:%M:%S')
