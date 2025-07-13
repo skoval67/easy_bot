@@ -29,8 +29,6 @@ jobs:
           user: ${{ secrets.SSH_USER }}
           ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
           detach: false
-          #prune: true
-          #resolve_image: always
           registry_host: ghcr.io
           registry_user: skoval67
           registry_pass: ${{ secrets.GITHUB_TOKEN }}
