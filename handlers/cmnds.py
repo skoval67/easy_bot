@@ -1,4 +1,4 @@
-from loader import bot, logger
+#from loader import bot, logger
 from states.polls import HotelPrice
 from telebot.types import Message, CallbackQuery, InlineKeyboardButton
 from keyboards.inline.keybrds import generate_calendar_days, generate_calendar_months, keybrd_yesno, keybrd_specify_city
@@ -50,7 +50,7 @@ def hotels_count(message: Message) -> None:
     if int(message.text) <= 0:
       raise ValueError('Так мало??')
   except Exception as e:
-    logger.exception(e)
+    #logger.exception(e)
     bot.reply_to(message, f'Здесь какая-то ошибка: {str(e)}\nСколько отелей показать?')
     return
   with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
@@ -100,5 +100,5 @@ def get_dustance_range(message: Message) -> None:
     bot.set_state(message.from_user.id, HotelPrice.hotels_count, message.chat.id)
     bot.send_message(message.chat.id, 'Сколько отелей показать?')
   except Exception as e:
-    logger.exception(e)
+    #logger.exception(e)
     bot.reply_to(message, f'Здесь какая-то ошибка: {str(e)}\nУкажите диапазон расстояний в км: <i>min - max</i>', parse_mode='html')
