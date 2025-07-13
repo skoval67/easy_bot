@@ -6,9 +6,7 @@ services:
       BOT_TOKEN: ${BOT_TOKEN}
       RAPID_API_KEY: ${RAPID_API_KEY}
     volumes:
-      - botlog:/app/mybot.log
-      - bothistory:/app/history.db
+      - bothistory/history.db:/app/history.db
 
 volumes:
-  botlog:
   bothistory:
