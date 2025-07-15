@@ -69,9 +69,11 @@ jobs:
           push: true
           tags: ghcr.io/skoval67/easybot:latest,ghcr.io/skoval67/easybot:${{ env.SHA }}
 
-    - uses: actions/delete-package-versions@v5
-      with: 
-        package-name: easybot
-        package-type: container
-        min-versions-to-keep: 2
+    - name: Prune
+      uses: vlaurin/action-ghcr-prune@v0.6.0
+      with:
         token: ${{ secrets.GH_PAT }}
+        container: esybot
+        keep-younger-than: 7 # days
+        keep-last: 2
+        prune-untagged: true
