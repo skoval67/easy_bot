@@ -72,8 +72,7 @@ jobs:
     - name: Prune
       uses: vlaurin/action-ghcr-prune@v0.6.0
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GH_PAT }}
         container: easybot
-        #keep-younger-than: 7 # days
         keep-last: 2
         prune-untagged: true
