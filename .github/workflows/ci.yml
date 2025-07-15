@@ -73,6 +73,7 @@ jobs:
       uses: vlaurin/action-ghcr-prune@v0.6.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        user: skoval67
         container: easybot
         keep-last: 2
         prune-untagged: true
