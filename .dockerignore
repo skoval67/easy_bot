@@ -1,6 +1,6 @@
 .env
 .git
 .gitignore
-history.db
-mybot.log
+.github
+history
 __pycache__
