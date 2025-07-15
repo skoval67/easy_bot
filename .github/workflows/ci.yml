@@ -73,7 +73,7 @@ jobs:
       uses: vlaurin/action-ghcr-prune@v0.6.0
       with:
         token: ${{ secrets.GH_PAT }}
-        container: esybot
+        container: easybot
         keep-younger-than: 7 # days
         keep-last: 2
         prune-untagged: true
