@@ -74,7 +74,7 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         user: skoval67
-        container: easybot
+        container: easy_bot
         keep-last: 2
         prune-untagged: true
         keep-tags: latest
