@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ $default-branch, develop ]
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ $default-branch, develop ]
   workflow_dispatch:
 
 jobs:
@@ -74,7 +74,7 @@ jobs:
       with:
         token: ${{ secrets.GH_PAT }}
         container: easybot
-        keep-last: 2
+        #keep-last: 2
         prune-untagged: true
         keep-tags-regexes: |
           latest$
