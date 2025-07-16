@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      contents: write
       packages: write
       attestations: write
       id-token: write
@@ -68,3 +68,14 @@ jobs:
       with:
           push: true
           tags: ghcr.io/skoval67/easybot:latest,ghcr.io/skoval67/easybot:${{ env.SHA }}
+
+    - name: Prune
+      uses: vlaurin/action-ghcr-prune@v0.6.0
+      with:
+        token: ${{ secrets.GH_PAT }}
+        container: easybot
+        keep-last: 2
+        prune-untagged: true
+        keep-tags-regexes: |
+          latest$
+          ^v
