@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write
+      #contents: write
       packages: write
-      attestations: write
-      id-token: write
+      #attestations: write
+      #id-token: write
 
     steps:
     - name: Set up QEMU
