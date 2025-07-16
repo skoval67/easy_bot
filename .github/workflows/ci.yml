@@ -75,8 +75,9 @@ jobs:
         token: ${{ secrets.GH_PAT }}
         user: skoval67
         container: easybot
-        keep-last: 1
+        #keep-last: 1
+        prune-untagged: true
         keep-tags-regexes: |
           latest$
         prune-tags-regexes: |
-          ^[0-9]
+          ^[0-9a-f]
