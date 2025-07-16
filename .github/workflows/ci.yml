@@ -75,9 +75,17 @@ jobs:
         token: ${{ secrets.GH_PAT }}
         user: skoval67
         container: easybot
-        #keep-last: 1
         prune-untagged: true
         keep-tags-regexes: |
           latest$
+          ^v
         prune-tags-regexes: |
           ^[0-9a-f]
+
+    - name: Delete workflow runs
+      uses: Mattraks/delete-workflow-runs@v2
+      with:
+        token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        retain_days: 30
+        keep_minimum_runs: 1
