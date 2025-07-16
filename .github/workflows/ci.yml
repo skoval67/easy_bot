@@ -76,3 +76,6 @@ jobs:
         container: easybot
         keep-last: 2
         prune-untagged: true
+        keep-tags-regexes: |
+          latest$
+          ^v
