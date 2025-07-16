@@ -76,4 +76,7 @@ jobs:
         user: skoval67
         container: easybot
         keep-last: 1
-        prune-untagged: true
+        keep-tags-regexes: |
+          latest$
+        prune-tags-regexes: |
+          ^[0-9]
