@@ -87,8 +87,8 @@ jobs:
         keep-last: 3
         keep-tags-regexes: |
           ^v
-        #prune-tags-regexes: |
-        #  ^[0-9a-f]
+        prune-tags-regexes: |
+          ^[0-9a-f]
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
