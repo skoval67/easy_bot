@@ -62,21 +62,34 @@ jobs:
       with:
         length: 7
  
-    - name: Skip Deploy?
-      if: github.event_name == 'pull_request' #&& contains('refs/heads/uat', github.ref)
-      run: echo "image_tag=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        # list of Docker images to use as base name for tags
+        images: |
+          ghcr.io/skoval67/easybot
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
 
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: ghcr.io/skoval67/easybot:${{ env.image_tag }},ghcr.io/skoval67/easybot:${{ env.SHA }}
+        tags: ${{ steps.meta.outputs.tags }} #ghcr.io/skoval67/easybot:latest,ghcr.io/skoval67/easybot:${{ env.SHA }}
 
-    - name: Prune
+    - name: GHCR Pruning
       uses: vlaurin/action-ghcr-prune@v0.6.0
       with:
         token: ${{ secrets.GH_PAT }}
-        user: skoval67
+        #user: skoval67
         container: easybot
         prune-untagged: true
         keep-last: 3
@@ -84,7 +97,7 @@ jobs:
           latest$
           ^v
         prune-tags-regexes: |
-          ^[0-9a-f]
+          *
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
