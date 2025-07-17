@@ -67,10 +67,12 @@ jobs:
       with:
         images: |
           ghcr.io/skoval67/easybot
+        flavor: |
+          latest=true
         tags: |
           type=semver,pattern=v{{version}}
           type=sha,prefix=
-          type=raw,value=latest
+          #type=raw,value=latest
 
     - name: Build and push
       uses: docker/build-push-action@v6
