@@ -61,11 +61,10 @@ jobs:
         length: 7
       env:
         SHA: ${{ steps.short-sha.outputs.sha }}
+        image_tag: latest
  
     - name: Build and push
       uses: docker/build-push-action@v6
-      env:
-        image_tag: latest
       with:
         push: true
         tags: ghcr.io/skoval67/easybot:${{ env.image_tag }},ghcr.io/skoval67/easybot:${{ env.SHA }}
