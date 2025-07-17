@@ -71,12 +71,13 @@ jobs:
           ghcr.io/skoval67/easybot
           # generate Docker tags based on the following events/attributes
         tags: |
-          #  type=ref,event=branch
-          #  type=ref,event=pr
-          #  type=semver,pattern={{version}}
-          #  type=semver,pattern={{major}}.{{minor}}
-          #  type=semver,pattern={{major}}
-          type=sha
+          type=ref,event=branch
+          type=ref,event=pr
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=semver,pattern={{major}}
+          type=sha,prefix=,format=short,enable=true,priority=100
+          type=raw,value=latest
 
     - name: Build and push
       uses: docker/build-push-action@v6
