@@ -7,6 +7,9 @@ on:
     branches: [ $default-branch, uat ]
   workflow_dispatch:
 
+env:
+  image_tag: latest
+
 jobs:
   build:
 
@@ -56,18 +59,22 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - uses: benjlevesque/short-sha@v3.0
-      id: short-sha
+      #id: short-sha
       with:
         length: 7
       #env:
       #  SHA: ${{ steps.short-sha.outputs.sha }}
       #  image_tag: latest
  
+    #- name: Skip Deploy?
+    #  if: env.NEED != 'true'
+    #  run: echo "Only pushing to 'master' causes automatic deployment"
+
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: ghcr.io/skoval67/easybot:latest,ghcr.io/skoval67/easybot:${{ env.SHA }}
+        tags: ghcr.io/skoval67/easybot:${{ env.image_tag }},ghcr.io/skoval67/easybot:${{ env.SHA }}
 
     - name: Prune
       uses: vlaurin/action-ghcr-prune@v0.6.0
