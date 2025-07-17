@@ -68,11 +68,9 @@ jobs:
         images: |
           ghcr.io/skoval67/easybot
         tags: |
-          #type=semver,pattern={{version}}
-          type=semver,pattern={{major}}.{{minor}}
-          #type=semver,pattern={{major}}
+          type=semver,pattern=v{{version}}
           type=sha,prefix=,format=short,enable=true,priority=100
-          #type=raw,value=latest
+          type=raw,value=latest
 
     - name: Build and push
       uses: docker/build-push-action@v6
