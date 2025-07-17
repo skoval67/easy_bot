@@ -59,9 +59,9 @@ jobs:
       id: short-sha
       with:
         length: 7
-      env:
-        SHA: ${{ steps.short-sha.outputs.sha }}
-        image_tag: latest
+      #env:
+      #  SHA: ${{ steps.short-sha.outputs.sha }}
+      #  image_tag: latest
  
     - name: Build and push
       uses: docker/build-push-action@v6
