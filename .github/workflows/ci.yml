@@ -63,7 +63,7 @@ jobs:
         length: 7
  
     - name: Skip Deploy?
-      if: github.event_name == 'pull_request' && contains('refs/heads/uat', github.ref)
+      if: github.event_name == 'pull_request' #&& contains('refs/heads/uat', github.ref)
       run: echo "image_tag=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
 
     - name: Build and push
