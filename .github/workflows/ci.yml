@@ -69,7 +69,7 @@ jobs:
           ghcr.io/skoval67/easybot
         tags: |
           type=semver,pattern=v{{version}}
-          type=sha,prefix=,format=short,enable=true,priority=100
+          type=sha,prefix=
           type=raw,value=latest
 
     - name: Build and push
