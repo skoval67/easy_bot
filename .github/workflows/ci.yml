@@ -67,7 +67,7 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: ghcr.io/skoval67/easybot:${{ env.image_tag }},ghcr.io/skoval67/easybot:${{ env.SHA }}
+        tags: ghcr.io/skoval67/easybot:latest,ghcr.io/skoval67/easybot:${{ env.SHA }}
 
     - name: Prune
       uses: vlaurin/action-ghcr-prune@v0.6.0
