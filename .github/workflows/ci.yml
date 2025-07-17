@@ -72,7 +72,7 @@ jobs:
           # generate Docker tags based on the following events/attributes
         tags: |
           #type=ref,event=branch
-          type=ref,event=pr
+          #type=ref,event=pr
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
@@ -83,21 +83,19 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: ${{ steps.meta.outputs.tags }} #ghcr.io/skoval67/easybot:latest,ghcr.io/skoval67/easybot:${{ env.SHA }}
+        tags: ${{ steps.meta.outputs.tags }}
 
     - name: GHCR Pruning
       uses: vlaurin/action-ghcr-prune@v0.6.0
       with:
         token: ${{ secrets.GH_PAT }}
-        #user: skoval67
         container: easybot
         prune-untagged: true
         keep-last: 3
         keep-tags-regexes: |
-          latest$
           ^v
-        prune-tags-regexes: |
-          ^[0-9a-f]
+        #prune-tags-regexes: |
+        #  ^[0-9a-f]
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
