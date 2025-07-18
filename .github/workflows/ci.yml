@@ -79,6 +79,25 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
 
+    - name: Stack Deploy
+      if: github.event_name == 'push'
+      uses: cssnr/stack-deploy-action@v1
+      env:
+        image_tag: latest
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
+      with:
+        name: tgbot
+        file: docker-compose.yaml
+        host: ${{ secrets.SSH_HOST }}
+        user: ${{ secrets.SSH_USER }}
+        ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        detach: false
+        registry_host: ghcr.io
+        registry_user: skoval67
+        registry_pass: ${{ secrets.GITHUB_TOKEN }}
+        summary: true
+
     - name: GHCR Pruning
       uses: vlaurin/action-ghcr-prune@v0.6.0
       with:
