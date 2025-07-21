@@ -2,12 +2,6 @@ name: CD
 
 on:
   workflow_dispatch:
-    #inputs:
-    #  tag:
-    #    description: 'Scenario tag'
-    #    required: true
-    #    default: latest
-    #    type: string
 
 jobs:
   deploy:
