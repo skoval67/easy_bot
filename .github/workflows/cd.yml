@@ -6,7 +6,7 @@ on:
       tag:
         description: 'Scenario tag'
         required: true
-        default: ${{ github.ref_name }}
+        default: latest
         type: string
 
 jobs:
@@ -22,6 +22,7 @@ jobs:
           image_tag: ${{ inputs.tag }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
+          ttag: ${{ github.ref_name }}
         with:
           name: tgbot
           file: docker-compose.yaml
