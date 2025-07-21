@@ -6,7 +6,7 @@ on:
       tag:
         description: 'Scenario tag'
         required: true
-        default: 'latest'
+        default: github.ref_name
         type: string
 
 jobs:
