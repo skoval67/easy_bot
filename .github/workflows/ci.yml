@@ -102,6 +102,7 @@ jobs:
       uses: vlaurin/action-ghcr-prune@v0.6.0
       with:
         token: ${{ secrets.GH_PAT }}
+        user: skoval67
         container: easybot
         #prune-untagged: true
         keep-last: 3
