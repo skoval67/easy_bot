@@ -5,8 +5,8 @@ on:
     branches: [ develop ]
     tags:
       - v*
-  pull_request:
-    branches: [ $default-branch, uat ]
+  #pull_request:
+  #  branches: [ $default-branch, uat ]
   workflow_dispatch:
 
 jobs:
@@ -83,7 +83,7 @@ jobs:
       if: github.event_name == 'push'
       uses: cssnr/stack-deploy-action@v1
       env:
-        image_tag: latest
+        image_tag: ${{ github.ref_name }}
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
       with:
@@ -104,7 +104,7 @@ jobs:
         token: ${{ secrets.GH_PAT }}
         user: skoval67
         container: easybot
-        #prune-untagged: true
+        prune-untagged: true
         keep-last: 3
         keep-tags-regexes: |
           ^v
