@@ -83,7 +83,7 @@ jobs:
       if: github.event_name == 'push'
       uses: cssnr/stack-deploy-action@v1
       env:
-        image_tag: ${{ github.ref_name }}
+        image_tag: latest
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
       with:
