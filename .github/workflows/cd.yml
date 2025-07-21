@@ -16,20 +16,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      #- name: Stack Deploy
-      #  uses: cssnr/stack-deploy-action@v1
-      #  env:
-      #    image_tag: ${{ inputs.tag }}
-      #    BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      #    RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
-      #  with:
-      #    name: tgbot
-      #    file: docker-compose.yaml
-      #    host: ${{ secrets.SSH_HOST }}
-      #    user: ${{ secrets.SSH_USER }}
-      #    ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #    detach: false
-      #    registry_host: ghcr.io
-      #    registry_user: skoval67
-      #    registry_pass: ${{ secrets.GITHUB_TOKEN }}
-      #    summary: true
+      - name: Stack Deploy
+        uses: cssnr/stack-deploy-action@v1
+        env:
+          image_tag: ${{ inputs.tag }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
+        with:
+          name: tgbot
+          file: docker-compose.yaml
+          host: ${{ secrets.SSH_HOST }}
+          user: ${{ secrets.SSH_USER }}
+          ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          detach: false
+          registry_host: ghcr.io
+          registry_user: skoval67
+          registry_pass: ${{ secrets.GITHUB_TOKEN }}
+          summary: true

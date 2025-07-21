@@ -103,7 +103,7 @@ jobs:
       with:
         token: ${{ secrets.GH_PAT }}
         container: easybot
-        prune-untagged: true
+        #prune-untagged: true
         keep-last: 3
         keep-tags-regexes: |
           ^v
