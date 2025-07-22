@@ -2,12 +2,6 @@ name: CD
 
 on:
   workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Scenario tag'
-        required: true
-        default: github.ref_name
-        type: string
 
 jobs:
   deploy:
@@ -19,7 +13,7 @@ jobs:
       - name: Stack Deploy
         uses: cssnr/stack-deploy-action@v1
         env:
-          image_tag: ${{ inputs.tag }}
+          image_tag: ${{ github.ref_name }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
         with:
