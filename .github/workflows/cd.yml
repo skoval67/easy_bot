@@ -5,6 +5,7 @@ on:
 
 jobs:
   deploy:
+    if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
