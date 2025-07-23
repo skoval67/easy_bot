@@ -6,4 +6,4 @@ WORKDIR /app
 COPY . .
 RUN pip install --upgrade pip && pip3 install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT [ "python3", "main.py"]
+ENTRYPOINT [ "python3", "-Xfrozen_modules=off", "main.py"]
