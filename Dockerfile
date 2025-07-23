@@ -4,6 +4,6 @@ LABEL org.opencontainers.image.source=https://github.com/skoval67/easy_bot
 WORKDIR /app
 
 COPY . .
-RUN pip install --upgrade pip && pip3 install -r requirements.txt
+RUN pip install --upgrade pip && pip3 install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT [ "python3", "-m", "debugpy", "--listen", "0.0.0.0:5678", "--wait-for-client", "main.py"]
+ENTRYPOINT [ "python3", "main.py"]
