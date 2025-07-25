@@ -6,7 +6,7 @@ from loader import logger
 from datetime import date
 from backoff import on_exception, expo, fibo
 #from loader import logger
-
+import debugpy
 
 APIHOST = "hotels4.p.rapidapi.com"
 APIURL = f"https://{APIHOST}/"+"{0}"
