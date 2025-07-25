@@ -42,6 +42,7 @@ def get_regions_id(location: str) -> List:
 
 def make_query(data: Dict) -> (bool, Dict):
   try:
+    debugpy.breakpoint()
     url = APIURL.format('properties/v2/list')
     headers = {
   	  "X-RapidAPI-Key": config.RAPID_API_KEY,
