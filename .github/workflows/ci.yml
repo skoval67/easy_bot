@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches: [ $default-branch, develop ]
+    tags: ['v*']
   pull_request:
     branches: [ $default-branch, uat ]
   workflow_dispatch:
@@ -77,11 +78,13 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
 
     - name: Stack Deploy
+      if: github.ref == 'refs/heads/develop'
       uses: cssnr/stack-deploy-action@v1
       env:
         image_tag: latest
         BOT_TOKEN: ${{ secrets.BOT_TOKEN_DEV }}
         RAPID_API_KEY: ${{ secrets.RAPID_API_KEY_DEV }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       with:
         name: tgbot_dev
         file: docker-compose.yaml

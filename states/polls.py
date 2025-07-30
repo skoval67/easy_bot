@@ -9,3 +9,6 @@ class HotelPrice(StatesGroup):
   hotels_count = State()    # количество отелей для вывода за один поиск
   show_photo = State()      # включать фотографии в результат поиска?
   photo_count = State()     # если включать, то сколько
+
+class Prompt(StatesGroup):
+  question = State()        # Текст запроса к ИИ
