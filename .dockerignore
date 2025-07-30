@@ -1,0 +1,6 @@
+.env
+.git
+.gitignore
+.github
+history
+__pycache__
