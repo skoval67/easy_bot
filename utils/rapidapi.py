@@ -22,7 +22,6 @@ def get_post(url: str, **kwargs) -> Response:
 
 def get_regions_id(location: str) -> List:
   try:
-    debugpy.breakpoint()
     url = APIURL.format('locations/v3/search')
     headers = {
   	  "X-RapidAPI-Key": config.RAPID_API_KEY,
