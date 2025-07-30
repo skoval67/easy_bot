@@ -7,8 +7,8 @@ services:
       RAPID_API_KEY: ${RAPID_API_KEY}
     volumes:
       - bothistory:/app/history
-    ports:
-      - 5678:5678
+    #ports:
+    #  - 5678:5678
 
 volumes:
   bothistory:
