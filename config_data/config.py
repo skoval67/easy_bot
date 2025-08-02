@@ -1,8 +1,8 @@
 import os
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
-SECRETIK = os.getenv('SECRETIK')
 RAPID_API_KEY = os.getenv('RAPID_API_KEY')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 DEFAULT_COMMANDS = (
     ('start', "запуск бота"),
