@@ -45,14 +45,7 @@ def retry(exception, max_tries=None):
 
   return wrap_fun
 
-#@retry(Exception)
-#def open_ai_response(text):
-#  response = client.responses.create(
-#    model="gpt-4.1",
-#    input=text
-#  )
-#  return response.output_text
-
+@retry(Exception)
 def bot_asks_ai(text):
   response = client.responses.create(
     model="gpt-4.1",
