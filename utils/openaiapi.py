@@ -53,6 +53,6 @@ def bot_asks_ai(text):
 
   response = client.responses.create(
     model="gpt-4.1",
-    input=text
+    input="what time is it now"
   )
   return response.output_text
