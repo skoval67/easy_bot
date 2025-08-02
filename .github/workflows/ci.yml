@@ -85,7 +85,7 @@ jobs:
         image_tag: latest
         SECRETIK: ${{ secrets.BOT_TOKEN_DEV }}
         BOT_TOKEN: ${{ secrets.BOT_TOKEN_DEV }}
-        RAPID_API_KEY: ${{ secrets.RAPID_API_KEY_DEV }}
+        #RAPID_API_KEY: ${{ secrets.RAPID_API_KEY_DEV }}
       with:
         name: tgbot_dev
         file: docker-compose.yaml
