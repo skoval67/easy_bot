@@ -47,7 +47,7 @@ def retry(exception, max_tries=None):
 
 @retry(Exception)
 def bot_asks_ai(text):
-  key = config.OPENAI_API_KEY
+  key = config.SECRETIK
   logger.info("api_key is: %s", key)
   client = OpenAI(api_key=key,)
 
