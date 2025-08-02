@@ -5,7 +5,7 @@ from loader import logger
 from openai import OpenAI
 from config_data import config
 
-key = config.RAPID_API_KEY
+key = config.OPENAI_API_KEY
 logger.info("api_key is: %s", key)
 client = OpenAI(api_key=key,)
 
