@@ -4,3 +4,4 @@
 .github
 history
 __pycache__
+docker-compose.yaml

@@ -1,13 +1,11 @@
-import os
 from functools import wraps
 from time import sleep
 from loader import logger
 from openai import OpenAI
 from config_data import config
 
-key = config.OPENAI_API_KEY
-print(key)
-client = OpenAI(api_key=key,)
+
+client = OpenAI(api_key=config.OPENAI_API_KEY)
 
 def retry(exception, max_tries=None):
   """
@@ -46,16 +44,9 @@ def retry(exception, max_tries=None):
   return wrap_fun
 
 #@retry(Exception)
-#def open_ai_response(text):
-#  response = client.responses.create(
-#    model="gpt-4.1",
-#    input=text
-#  )
-#  return response.output_text
-
 def bot_asks_ai(text):
   response = client.responses.create(
     model="gpt-4.1",
-    input=text
+    input="what time is it now"
   )
   return response.output_text
