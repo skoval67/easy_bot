@@ -5,9 +5,9 @@ from loader import logger
 from openai import OpenAI
 from config_data import config
 
-key = config.OPENAI_API_KEY
-logger.info("api_key is: %s", key)
-client = OpenAI(api_key=key,)
+#key = config.OPENAI_API_KEY
+#logger.info("api_key is: %s", key)
+#client = OpenAI(api_key=key,)
 
 def retry(exception, max_tries=None):
   """
@@ -47,6 +47,10 @@ def retry(exception, max_tries=None):
 
 @retry(Exception)
 def bot_asks_ai(text):
+  key = config.OPENAI_API_KEY
+  logger.info("api_key is: %s", key)
+  client = OpenAI(api_key=key,)
+
   response = client.responses.create(
     model="gpt-4.1",
     input=text
