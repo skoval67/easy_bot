@@ -137,5 +137,5 @@ def bot_asks_ai(text):
 	  "x-rapidapi-host": "free-chatgpt-api.p.rapidapi.com"
   }
 
-  response = get(url, headers=headers, params=querystring)
-  return response.output_text
+  response = get_url(url, headers=headers, params=querystring)
+  return response.text
