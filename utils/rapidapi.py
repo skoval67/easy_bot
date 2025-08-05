@@ -133,7 +133,7 @@ def bot_asks_ai(text):
   querystring = {"prompt":text}
 
   headers = {
-	  "x-rapidapi-key": config.RAPID_API_KEY,
+	  "x-rapidapi-key": config.RAPID_OPENAI_API_KEY,
 	  "x-rapidapi-host": "free-chatgpt-api.p.rapidapi.com"
   }
 

@@ -85,6 +85,7 @@ jobs:
         image_tag: latest
         BOT_TOKEN: ${{ secrets.BOT_TOKEN_DEV }}
         RAPID_API_KEY: ${{ secrets.RAPID_API_KEY_DEV }}
+        RAPID_OPENAI_API_KEY: ${{ secrets.RAPID_OPENAI_API_KEY }}
       with:
         name: tgbot_dev
         file: docker-compose.yaml
