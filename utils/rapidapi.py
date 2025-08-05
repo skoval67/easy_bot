@@ -126,3 +126,16 @@ def make_query(data: Dict) -> (bool, Dict):
     return False, str(e)
 
   return True, answer
+
+def bot_asks_ai(text):
+  url = "https://free-chatgpt-api.p.rapidapi.com/chat-completion-one"
+
+  querystring = {"prompt":text}
+
+  headers = {
+	  "x-rapidapi-key": config.RAPID_API_KEY,
+	  "x-rapidapi-host": "free-chatgpt-api.p.rapidapi.com"
+  }
+
+  response = get(url, headers=headers, params=querystring)
+  return response.output_text

@@ -1,7 +1,7 @@
 from loader import bot
 from states.polls import Prompt
 from telebot.types import Message
-from utils.openaiapi import bot_asks_ai
+from utils.rapidapi import bot_asks_ai
 import debugpy
 
 

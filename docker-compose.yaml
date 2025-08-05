@@ -5,7 +5,6 @@ services:
     environment:
       BOT_TOKEN: ${BOT_TOKEN}
       RAPID_API_KEY: ${RAPID_API_KEY}
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
     volumes:
       - bothistory:/app/history
     ports:
