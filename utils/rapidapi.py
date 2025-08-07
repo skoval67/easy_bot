@@ -137,5 +137,5 @@ def bot_asks_ai(text):
 	  "Content-Type": "application/json"
   }
 
-  response = requests.post(url, json=payload, headers=headers)
+  response = get_post(url, json=payload, headers=headers)
   return response.json()
