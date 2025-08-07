@@ -130,7 +130,7 @@ def make_query(data: Dict) -> (bool, Dict):
 def bot_asks_ai(text):
   url = "https://chatgpt-42.p.rapidapi.com/aitohuman"
 
-  payload = { "text": "Global warming is the long-term rise in Earth's average temperature due to human activities, primarily the burning of fossil fuels, deforestation, and industrial emissions. These activities release greenhouse gases like carbon dioxide and methane, which trap heat in the atmosphere and lead to climate change. As a result, glaciers are melting, sea levels are rising, and extreme weather events such as hurricanes, heatwaves, and droughts are becoming more frequent. Global warming also threatens biodiversity, disrupts ecosystems, and impacts agriculture, leading to food and water shortages. Urgent action, including reducing carbon emissions, adopting renewable energy, and promoting sustainable practices, is essential to mitigate its effects." }
+  payload = { "text": text }
   headers = {
 	  "x-rapidapi-key": config.RAPID_API_KEY,
   	"x-rapidapi-host": "chatgpt-42.p.rapidapi.com",
