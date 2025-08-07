@@ -128,14 +128,14 @@ def make_query(data: Dict) -> (bool, Dict):
   return True, answer
 
 def bot_asks_ai(text):
-  url = "https://free-chatgpt-api.p.rapidapi.com/chat-completion-one"
+  url = "https://chatgpt-42.p.rapidapi.com/aitohuman"
 
-  querystring = {"prompt":"hello"}
-
+  payload = { "text": "Global warming is the long-term rise in Earth's average temperature due to human activities, primarily the burning of fossil fuels, deforestation, and industrial emissions. These activities release greenhouse gases like carbon dioxide and methane, which trap heat in the atmosphere and lead to climate change. As a result, glaciers are melting, sea levels are rising, and extreme weather events such as hurricanes, heatwaves, and droughts are becoming more frequent. Global warming also threatens biodiversity, disrupts ecosystems, and impacts agriculture, leading to food and water shortages. Urgent action, including reducing carbon emissions, adopting renewable energy, and promoting sustainable practices, is essential to mitigate its effects." }
   headers = {
-	  "x-rapidapi-key": config.RAPID_OPENAI_API_KEY,
-	  "x-rapidapi-host": "free-chatgpt-api.p.rapidapi.com"
+	  "x-rapidapi-key": config.RAPID_API_KEY,
+  	"x-rapidapi-host": "chatgpt-42.p.rapidapi.com",
+	  "Content-Type": "application/json"
   }
 
-  response = get_url(url, headers=headers, params=querystring)
+  response = requests.post(url, json=payload, headers=headers)
   return response.json()
