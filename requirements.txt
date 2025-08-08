@@ -2,4 +2,4 @@ pyTelegramBotAPI==4.28.0
 requests==2.32.4
 backoff==2.2.1
 peewee==3.18.2
-debugpy==1.8.15
+yandex-cloud-ml-sdk==0.13.1

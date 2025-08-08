@@ -72,10 +72,20 @@ jobs:
           type=semver,pattern=v{{version}}
           type=sha,prefix=
 
+    - name: Set branch-based environment variables
+      uses: iamtheyammer/branch-env-vars@v1.2.2
+      with:
+        target: |
+          master:base
+          develop:debug
+          !tag:base
+          !default:debug
+
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
         push: true
+        target: ${{ env.target }}
         tags: ${{ steps.meta.outputs.tags }}
 
     - name: Stack Deploy
