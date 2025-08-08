@@ -75,15 +75,17 @@ jobs:
     - name: Set branch-based environment variables
       uses: iamtheyammer/branch-env-vars@v1.2.2
       with:
-        EXAMPLE: |
+        TARGET: |
           master:base
-          develop:base
+          develop:debug
+          !tag:base
+          !default:debug
 
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
         push: true
-        target: ${{ env.EXAMPLE }}
+        target: ${{ env.TARGET }}
         tags: ${{ steps.meta.outputs.tags }}
 
     - name: Stack Deploy
