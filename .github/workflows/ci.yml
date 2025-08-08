@@ -76,17 +76,19 @@ jobs:
       uses: iamtheyammer/branch-env-vars@v1.2.2
       with:
         bevOverwrite: true
-        PTARGET: |
-          master: base
-          develop: debug
+        EXAMPLE: |
+          master:base
+          develop:debug
           !tag: base
           !default: debug
+        ANOTHER_EXAM: |
+          master:value
 
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
         push: true
-        target: ${{ env.PTARGET }}
+        target: ${{ env.EXAMPLE }}
         tags: ${{ steps.meta.outputs.tags }}
 
     - name: Stack Deploy
