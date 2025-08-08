@@ -76,11 +76,11 @@ jobs:
       uses: iamtheyammer/branch-env-vars@v1.2.2
       with:
         bevOverwrite: true
-        bevPTARGET: |
+        PTARGET: |
           master:base
           develop:debug
           !tag:base
-          !default:debug
+          default:debug
 
     - name: Build and push
       uses: docker/build-push-action@v6
