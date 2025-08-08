@@ -73,7 +73,7 @@ jobs:
           type=sha,prefix=
 
     - name: Set branch-based environment variables
-      uses: iamtheyammer/branch-env-vars@v1.2.2
+      uses: iamtheyammer/branch-env-vars@v1.2.0
       with:
         bevOverwrite: true
         EXAMPLE: |
