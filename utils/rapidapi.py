@@ -6,7 +6,6 @@ from loader import logger
 from datetime import date
 from backoff import on_exception, expo, fibo
 #from loader import logger
-import debugpy
 
 APIHOST = "hotels4.p.rapidapi.com"
 APIURL = f"https://{APIHOST}/"+"{0}"
@@ -22,7 +21,6 @@ def get_post(url: str, **kwargs) -> Response:
 
 def get_regions_id(location: str) -> List:
   try:
-    debugpy.breakpoint()
     url = APIURL.format('locations/v3/search')
     headers = {
   	  "X-RapidAPI-Key": config.RAPID_API_KEY,

@@ -7,7 +7,6 @@ import debugpy
 
 @bot.message_handler(commands=['prompt'])
 def prompt(message: Message) -> None:
-  #debugpy.breakpoint()
   bot.set_state(message.from_user.id, Prompt.question, message.chat.id)
   bot.send_message(message.chat.id, f'Вопрос к <strong>ИИ</strong>', parse_mode='html')
 
