@@ -77,11 +77,10 @@ jobs:
       with:
         bevOverwrite: true
         PTARGET: |
-
-          master:base
-          develop:debug
-          !tag:base
-          default:debug
+              master:base
+              develop:debug
+              !tag:base
+              default:debug
 
     - name: Build and push
       uses: docker/build-push-action@v6
