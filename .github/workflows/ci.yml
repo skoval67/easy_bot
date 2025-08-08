@@ -76,7 +76,7 @@ jobs:
       uses: iamtheyammer/branch-env-vars@v1.2.2
       with:
         bevOverwrite: true
-        PTARGET: |
+        bevPTARGET: |
           master:base
           develop:debug
           !tag:base
