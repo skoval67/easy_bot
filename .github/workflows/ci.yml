@@ -98,7 +98,7 @@ jobs:
         RAPID_OPENAI_API_KEY: ${{ secrets.RAPID_OPENAI_API_KEY }}
       with:
         name: tgbot_dev
-        file: docker-compose.yaml
+        file: docker-compose-${{ env.TARGET }}.yaml
         host: ${{ secrets.SSH_HOST }}
         user: ${{ secrets.SSH_USER }}
         ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
