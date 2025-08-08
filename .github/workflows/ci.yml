@@ -77,6 +77,7 @@ jobs:
       with:
         EXAMPLE: |
           master:base
+          develop:base
 
     - name: Build and push
       uses: docker/build-push-action@v6
