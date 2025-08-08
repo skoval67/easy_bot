@@ -73,16 +73,10 @@ jobs:
           type=sha,prefix=
 
     - name: Set branch-based environment variables
-      uses: iamtheyammer/branch-env-vars@v1.2.0
+      uses: iamtheyammer/branch-env-vars@v1.2.2
       with:
-        bevOverwrite: true
         EXAMPLE: |
           master:base
-          develop:debug
-          !tag: base
-          !default: debug
-        ANOTHER_EXAM: |
-          master:value
 
     - name: Build and push
       uses: docker/build-push-action@v6
